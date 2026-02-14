@@ -1,18 +1,11 @@
 'use client';
 
 import { WagmiProvider } from 'wagmi';
-import { mainnet, sepolia, polygon, arbitrum } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RainbowKitProvider, getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { ReactNode, useState } from 'react';
-
-const config = getDefaultConfig({
-  appName: 'Token Dashboard',
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? '',
-  chains: [mainnet, sepolia, polygon, arbitrum],
-  ssr: true,
-});
+import { wagmiConfig } from '@/config/wagmi';
 
 export function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(
@@ -30,7 +23,7 @@ export function Providers({ children }: { children: ReactNode }) {
   );
 
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>{children}</RainbowKitProvider>
       </QueryClientProvider>
