@@ -1,9 +1,14 @@
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import { mainnet, sepolia, polygon, arbitrum } from 'wagmi/chains';
+import { getDefaultConfig } from "@rainbow-me/rainbowkit";
+import { arbitrumSepolia, sepolia } from "wagmi/chains";
+import { http } from "wagmi";
 
 export const wagmiConfig = getDefaultConfig({
-  appName: 'Token Dashboard',
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? '',
-  chains: [mainnet, sepolia, polygon, arbitrum],
+  appName: "ERC-20 Token Actions",
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? "",
+  chains: [sepolia, arbitrumSepolia],
   ssr: true,
+  transports: {
+    [sepolia.id]: http(),
+    [arbitrumSepolia.id]: http(),
+  },
 });
