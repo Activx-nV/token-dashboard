@@ -1,6 +1,7 @@
 # Web3 token interactions - notes
 
 > This document covers key concepts, implementation patterns, and lessons learned while building a token management dApp on Ethereum.
+
 > Goal:
 > Understand the patterns of writing code that changes the state of the blockchain.
 > Get familiar with standards of how to provide good UX both in successful scenarios and especially in relation to error handling.
