@@ -15,6 +15,7 @@ export const useTokenPrice = (coingeckoId: string) => {
     data: priceData,
     isLoading,
     isError,
+    refetch,
   } = useQuery<TokenPrice>({
     queryKey: ["tokenPrice", coingeckoId],
     queryFn: async () => {
@@ -22,6 +23,10 @@ export const useTokenPrice = (coingeckoId: string) => {
       url.searchParams.append("ids", coingeckoId);
       url.searchParams.append("vs_currencies", "usd");
       url.searchParams.append("include_24hr_change", "true");
+      url.searchParams.append(
+        "cg_demo_api_key",
+        process.env.NEXT_PUBLIC_COINGECKO_API || "",
+      );
 
       const response = await fetch(url);
 
@@ -37,5 +42,5 @@ export const useTokenPrice = (coingeckoId: string) => {
     staleTime: 60 * 1000,
   });
 
-  return { priceData, isLoading, isError };
+  return { priceData, isLoading, isError, refetch };
 };
